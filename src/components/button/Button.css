@@ -1,0 +1,9 @@
+.gradientBtn {
+  color: var(--neutral-G0);
+  border-radius: 0.5rem;
+  background: var(--branding-gradient);
+  padding: 0.75rem 2.25rem;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+}

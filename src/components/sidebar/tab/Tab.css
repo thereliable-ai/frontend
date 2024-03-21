@@ -1,0 +1,17 @@
+.tab {
+    /* border: 1px solid black; */
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.25rem 0.5rem;  
+    border-radius: 0.5rem;
+}
+
+.label {
+    color: var(--neutral-G50);
+    font-size: 0.8rem;
+}
+
+.active{
+    background: rgba(236, 236, 236, 0.15);
+}

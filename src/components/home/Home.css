@@ -1,0 +1,52 @@
+.home {
+  padding: 1.5rem 3rem;
+  width: 85vw;
+  background-color: var(--primary1-V300);
+}
+
+.home-chat {
+  display: flex;
+  align-items: flex-end;
+  height: 100vh;
+}
+
+.welcome-message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.illustration {
+  height: 30vh;
+}
+
+.welcome {
+  background: var(--branding-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.tagline {
+  color: var(--neutral-G20);
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.feature-container{
+  margin: 5vh 0;
+}
+
+.feature-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.feature-text {
+  color: var(--neutral-G20);
+  font-size: 1.25rem;
+}

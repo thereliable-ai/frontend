@@ -1,0 +1,26 @@
+.feedbackBtn {
+  border-radius: 0.25rem;
+  display: flex;
+  padding: 0.25rem 1rem 0.25rem 0.5rem;
+  gap: 0.5rem;
+  background: none;
+  width: auto;
+  align-items: center;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.feedbackBtn img{
+  height: 1.5rem;
+}
+
+.Insightful {
+  border: 0.1rem solid var(--semantic-Green-G200);
+  color: var(--semantic-Green-G200);
+}
+
+.Inaccurate {
+  border: 0.1rem solid var(--semantic-Red-R200);
+  color: var(--semantic-Red-R200);
+}

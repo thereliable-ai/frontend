@@ -1,0 +1,39 @@
+.connect-database {
+  /* border: 1px solid black; */
+  padding: 1.5rem 3rem;
+  width: 85vw;
+  background-color: var(--primary1-V300);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--neutral-G20);
+  margin-bottom: 0.75rem;
+}
+
+.subtext {
+  color: var(--neutral-G20);
+  font-weight: 300;
+}
+
+/* .remember {
+  display: flex;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem 0.75rem 0.5rem;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  background: var(--semantic-Blue-B50);
+  color: var(--primary1-V400);
+  align-items: center;
+} */
+
+.green {
+  color: var(--semantic-Green-G100);
+  font-weight: 600;
+}

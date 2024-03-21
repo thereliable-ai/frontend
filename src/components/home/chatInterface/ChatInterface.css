@@ -1,0 +1,113 @@
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  /* width: 100%; */
+  height: 100%;
+}
+
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  /* height: 100%; */
+  overflow-y: scroll;
+}
+
+.chat-log::-webkit-scrollbar {
+  display: none;
+}
+
+/* Chat Message */
+.chat-message-div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 90%;
+}
+
+.chat-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.chat-message img {
+  height: 1.75rem;
+}
+
+.message-bubble {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.message-text {
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+
+/* Chat footer */
+.chat-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.typing-text {
+  background: var(--branding-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+/* Chat Input */
+.chat-input-div {
+  display: flex;
+  justify-content: space-between;
+  /* background: var(--primary2-P300); */
+  background: transparent;
+  border-radius: 0.25rem;
+  border: 0.01rem solid var(--neutral-G100);
+}
+
+.chat-input-div:focus-within {
+  background: var(--primary2-P500);
+}
+
+textarea {
+  padding: 0.75rem;
+  outline: none;
+  color: var(--neutral-G20);
+  width: 100%;
+  font-size: 0.95rem;
+  line-height: 1.25;
+  background: none;
+  resize: vertical;
+  overflow-y: scroll;
+  border: none;
+}
+
+textarea::-webkit-scrollbar {
+  display: none;
+}
+
+textarea:focus {
+  outline: none;
+  border: none;
+}
+
+.send {
+  background: none;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-input-div:focus-within .send img{
+  content: url("../../../assets/icons/sendGradient.svg");
+}

@@ -1,0 +1,119 @@
+.connect-database-form {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  width: fit-content;
+}
+
+.inputDiv {
+  display: flex;
+  align-items: center;
+}
+
+label {
+  color: var(--neutral-G20);
+  font-size: 1.1rem;
+  display: block;
+  width: 14vw;
+  max-width: 14rem;
+}
+
+select {
+  padding: 0.75rem 0.25rem 0.75rem 1rem;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background-color: var(--primary2-P300);
+  background-image: url("../../../assets/icons/arrow_down.svg");
+  background-repeat: no-repeat;
+  background-position: center right;
+
+  width: 20vw;
+  max-width: 20rem;
+  color: var(--neutral-G20);
+  border-radius: 0.5rem;
+  /* border: none; */
+  border: 0.01rem solid var(--neutral-G100);
+}
+
+.inputDiv input {
+  display: flex;
+  /* width: 18.625rem; */
+  width: 20vw;
+  max-width: 20rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--primary2-P300);
+  color: var(--neutral-G20);
+  outline: none;
+  /* border: none; */
+  border: 0.01rem solid var(--neutral-G100);
+}
+
+select:focus,
+.inputDiv input:focus {
+  background-color: var(--primary2-P400);
+  outline: none;
+  /* border: none; */
+  border: 0.01rem solid var(--neutral-G100);
+}
+
+.btn-width {
+  width: fit-content;
+}
+
+/* .selectForm {
+  margin-top: 1rem;
+  position: relative;
+}
+
+.selectDiv {
+  margin: 2rem 0;
+}
+
+.selectDiv select {
+  width: 15vw;
+  max-width: 15rem;
+} */
+
+/*
+.rightSideBtn {
+  width: auto;
+  /* position: absolute; */
+/* right: 0; */
+
+.content {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.para {
+  color: var(--neutral-G20);
+  width: 90%;
+}
+
+hr {
+  margin: 5vh 0;
+  background: var(--neutral-G30);
+  border-radius: 100%;
+}
+
+.edit-btn {
+  display: flex;
+  padding: 0.75rem 1.5rem 0.75rem 1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  background: var(--semantic-Brown-B50);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--semantic-Brown-B500);
+  border: none;
+
+}

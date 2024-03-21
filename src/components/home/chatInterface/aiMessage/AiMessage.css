@@ -1,0 +1,27 @@
+.AI-response {
+  align-self: flex-start;
+}
+
+.AI-bubble {
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
+  background: var(--primary2-P500);
+}
+
+.AI-name {
+  background: var(--branding-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+.AI-message-text {
+  color: var(--neutral-G20);
+ 
+}
+
+.feedback-btns-div {
+  display: flex;
+  gap: 0.5rem;
+  padding-left: 2.25rem;
+}

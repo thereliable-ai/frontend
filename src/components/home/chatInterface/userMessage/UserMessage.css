@@ -1,0 +1,18 @@
+.user-response {
+  align-self: flex-end;
+}
+
+.user-bubble {
+  border-radius: 0.5rem 0 0.5rem 0.5rem;
+  background: var(--semantic-Blue-B50);
+  align-items: flex-end;
+}
+
+.user-name {
+  color: var(--semantic-Blue-B400);
+  font-weight: 600;
+}
+
+.user-message-text {
+  color: var(--primary1-V500);
+}
