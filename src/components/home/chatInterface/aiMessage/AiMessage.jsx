@@ -7,9 +7,9 @@ import cross from "../../../../assets/icons/cross.svg";
 import QueryPopup from "../../queryPopup/QueryPopup";
 
 const AiMessage = (props) => {
-  const [popupOpen, setPopupOpen] = useState(false);
+  const [popup, setPopup] = useState(false);
   const handleAiMessageClick = () => {
-    setPopupOpen(true);
+    setPopup(true);
   }
 
   return (
@@ -27,7 +27,7 @@ const AiMessage = (props) => {
           <FeedbackBtn icon={cross} label="Inaccurate" />
         </div>
       )}
-      <QueryPopup isOpen={popupOpen} closePopup={()=> setPopupOpen(false)} />
+      <QueryPopup isOpen={popup} closePopup={()=>setPopup(false)} />
     </div>
   );
 };

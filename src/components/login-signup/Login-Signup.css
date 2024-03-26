@@ -1,0 +1,30 @@
+.login, .signup {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: fit-content;
+}
+
+.login-signup-exchange{
+    color: var(--neutral-G20);
+    text-align: center;
+}
+
+.login-signup-link {
+    font-weight: 500;
+    background: var(--branding-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: underline var(--neutral-G20);
+    cursor: pointer;
+}

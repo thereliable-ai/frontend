@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./components/login/Login";
+import LoginSignup from "./components/login-signup/Login-Signup";
 import Sidebar from "./components/sidebar/Sidebar";
 import Home from "./components/home/Home";
 import ConnectDatabase from "./components/connectDatabase/ConnectDatabase";
@@ -8,8 +8,10 @@ import CreateLinks from "./components/createLinks/CreateLinks";
 import "../src/App.css";
 
 const App = () => {
+  const [isSignedUp, setIsSignedUp] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
+
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -19,10 +21,23 @@ const App = () => {
     setIsLoggedIn(false);
   };
 
+  const handleSignup = () => {
+    setIsSignedUp(true);
+  }
+
+  const GoToSignup = () => {
+    setIsSignedUp(false);
+
+  }
+
+  const GoToLogin =() =>{
+    setIsSignedUp(true);
+  }
+
   return !isLoggedIn ? (
     <Router>
       <Routes>
-        <Route path="/" element={<Login handleLogin={handleLogin} />}></Route>
+        <Route path="/" element={<LoginSignup isSignedUp={isSignedUp} handleLogin={handleLogin} handleSignup={handleSignup} GoToLogin={GoToLogin} GoToSignup={GoToSignup}/>}></Route>
       </Routes>
     </Router>
   ) : (

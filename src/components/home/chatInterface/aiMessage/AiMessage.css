@@ -5,6 +5,7 @@
 .AI-bubble {
   border-radius: 0 0.5rem 0.5rem 0.5rem;
   background: var(--primary2-P500);
+  cursor: pointer;
 }
 
 .AI-name {

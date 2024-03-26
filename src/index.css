@@ -34,6 +34,10 @@ a{
     text-decoration: none;
 }
 
+button {
+    cursor: pointer;
+}
+
 body {
     background-color: var(--primary1-V300);
 }

@@ -30,7 +30,7 @@ const Home = ({ isConnected }) => {
           <div className="feature-div">
             <img src={feedback} alt="feedback-icon" />
             <p className="feature-text">
-              Give feedback and improve it for further use 
+              Give feedback and improve it for future use 
             </p>
           </div>
         </div>

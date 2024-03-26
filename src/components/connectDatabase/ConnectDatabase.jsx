@@ -20,6 +20,10 @@ const ConnectDatabase = ({ onConnectionSuccess }) => {
     onConnectionSuccess();
   };
 
+  const handleEditConnection = () =>{
+    setDatabaseConnection(false);
+  }
+
   // const handleNextBtn = (event) => {
   //   event.preventDefault();
 
@@ -78,7 +82,7 @@ const ConnectDatabase = ({ onConnectionSuccess }) => {
       <ConnectDatabaseForm
         databaseConnection={databaseConnection}
         handleSubmit={handleSubmit}
-        // editConnection={editConnection}
+        handleEditConnection = {handleEditConnection}
         // tableChoice={tableChoice}
         // handleNextBtn={handleNextBtn}
         // uniqueIDChoice={uniqueIDChoice}

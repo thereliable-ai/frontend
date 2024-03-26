@@ -212,6 +212,7 @@ const ConnectDatabaseForm = (props) => {
       <button
         type="submit"
         className="edit-btn"
+        onClick={props.handleEditConnection}
       >
         <img src={edit} alt="edit-icon" />
         Edit Database Connection
