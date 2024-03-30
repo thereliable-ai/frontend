@@ -12,6 +12,7 @@ import logout from "../../assets/icons/Logout.svg";
 const Sidebar = (props) => {
   const [activeTab, setActiveTab] = useState(0);
   const location = useLocation();
+
   useEffect(() => {
     switch (location.pathname) {
       case "/":

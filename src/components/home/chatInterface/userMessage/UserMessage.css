@@ -6,6 +6,7 @@
   border-radius: 0.5rem 0 0.5rem 0.5rem;
   background: var(--semantic-Blue-B50);
   align-items: flex-end;
+  min-width: 8vw;
 }
 
 .user-name {

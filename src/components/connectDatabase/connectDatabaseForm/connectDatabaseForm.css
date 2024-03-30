@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-label {
+.inputDiv label {
   color: var(--neutral-G20);
   font-size: 1.1rem;
   display: block;
@@ -97,7 +97,7 @@ select:focus,
   width: 90%;
 }
 
-hr {
+.section-end-line{
   margin: 5vh 0;
   background: var(--neutral-G30);
   border-radius: 100%;

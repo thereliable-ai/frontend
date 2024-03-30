@@ -50,7 +50,9 @@ const App = () => {
             path="/connect-database"
             element={
               <ConnectDatabase
+                isConnected={isConnected}
                 onConnectionSuccess={() => setIsConnected(true)}
+                onConnectionDisconnect = {() => setIsConnected(false)}
               />
             }
           />

@@ -5,72 +5,107 @@ import edit from "../../../assets/icons/edit.svg";
 import "./connectDatabaseForm.css";
 
 const ConnectDatabaseForm = (props) => {
-  const [databaseType, setDatabaseType] = useState("");
-  const [host, setHost] = useState("");
-  const [port, setPort] = useState("");
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
+  // const [formData, setFormData] = useState({
+  //   db_user: "",
+  //   db_password: "",
+  //   db_host: "",
+  //   port_number: "",
+  //   dialect: "",
+  //   db_name: "marker",
+  // });
+
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
+
+  // const submitForm = async (e) => {
+  //   e.preventDefault();
+  //   try {
+
+  //     const response = await axios.post(
+  //       "http://54.208.20.141:8000/connect",
+  //       formData
+  //     );
+
+  //     if (response) {
+  //       // Handle successful connection
+  //       props.handleSubmit();
+  //     } else {
+  //       // Handle unsuccessful connection
+  //       alert("Failed to connect to the database");
+  //       console.error("Failed to connect to the database");
+  //     }
+  //   } catch (error) {
+  //     alert("An error occurred:", error);
+  //     console.error(error);
+  //   }
+  // };
+
   // const [table, setTable] = useState("");
   // const [uniqueID, setUniqueID] = useState("");
 
-  return !props.databaseConnection ? (
-    (<form onSubmit={props.handleSubmit} className="connect-database-form">
+  return !props.isConnected ? (
+    <form onSubmit={props.handleFormSubmit} className="connect-database-form">
       <div className="inputDiv">
-        <label htmlFor="databaseType">Database type</label>
+        <label htmlFor="dialect">Database type</label>
         <select
-          id="databaseType"
-          value={databaseType}
-          onChange={(e) => setDatabaseType(e.target.value)}
+          id="dialect"
+          value={props.formData.dialect}
+          onChange={props.handleInputChange}
+          name="dialect"
         >
           <option value="">Select DB Type</option>
-          <option value="PostgreSQL">PostgreSQL</option>
-          <option value="MongoDB">MongoDB</option>
-          <option value="MySQL">MySQL</option>
+          <option value="postgresql">PostgreSQL</option>
+          {/* <option value="mongodb">MongoDB</option> */}
+          <option value="mysql">MySQL</option>
         </select>
       </div>
 
       <div className="inputDiv">
-        <label htmlFor="host">Host</label>
+        <label htmlFor="db_host">Host</label>
         <input
           type="text"
-          id="host"
-          value={host}
-          onChange={(e) => setHost(e.target.value)}
+          id="db_host"
+          value={props.formData.db_host}
+          name="db_host"
+          onChange={props.handleInputChange}
         />
       </div>
 
       <div className="inputDiv">
-        <label htmlFor="port">Port</label>
+        <label htmlFor="port_number">Port</label>
         <input
           type="text"
-          id="port"
-          value={port}
-          onChange={(e) => setPort(e.target.value)}
+          id="port_number"
+          value={props.formData.port_number}
+          name="port_number"
+          onChange={props.handleInputChange}
         />
       </div>
 
       <div className="inputDiv">
-        <label htmlFor="user">User</label>
+        <label htmlFor="db_user">Username</label>
         <input
           type="text"
-          id="user"
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
+          id="db_user"
+          value={props.formData.db_user}
+          name="db_user"
+          onChange={props.handleInputChange}
         />
       </div>
 
       <div className="inputDiv">
-        <label htmlFor="password">Password</label>
+        <label htmlFor="db_password">Password</label>
         <input
           type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          id="db_password"
+          value={props.formData.db_password}
+          name="db_password"
+          onChange={props.handleInputChange}
         />
       </div>
-
       <Button type="submit" text="Connect" className="btn-width" />
-    </form> /*: !props.tableChoice ? (
+    </form> /*): (!props.tableChoice ? (
       //   <form onSubmit={props.handleNextBtn} className="selectForm">
       //     <p className="subtext">
       //       Now choose the table that contains the unique ID of each of your
@@ -112,91 +147,7 @@ const ConnectDatabaseForm = (props) => {
       //       Connect
       //     </button>
       //   </form>
-      // ) */ /*: !props.tableChoice ? (
-      //   <form onSubmit={props.handleNextBtn} className="selectForm">
-      //     <p className="subtext">
-      //       Now choose the table that contains the unique ID of each of your
-      //       clients
-      //     </p>
-      //     <div className="inputDiv selectDiv">
-      //       <label htmlFor="table">Table</label>
-      //       <select
-      //         id="table"
-      //         value={table}
-      //         onChange={(e) => setTable(e.target.value)}
-      //       >
-      //         <option value="">Select Table</option>
-      //         <option value="Clients">Clients</option>
-      //         <option value="Subscriptions">Subscriptions</option>
-      //         <option value="Finance">Finance</option>
-      //       </select>
-      //     </div>
-      //     <button type="submit" className="rightSideBtn">
-      //       Next
-      //     </button>
-      //   </form>
-      // ) : !props.uniqueIDChoice ? (
-      //   <form onSubmit={props.handleConnectBtn} className="selectForm">
-      //     <div className="inputDiv selectDiv">
-      //       <label htmlFor="uniqueID">Field</label>
-      //       <select
-      //         id="uniqueID"
-      //         value={uniqueID}
-      //         onChange={(e) => setUniqueID(e.target.value)}
-      //       >
-      //         <option value="">Select Unique ID</option>
-      //         <option value="Client ID">Client ID</option>
-      //         <option value="Phone Number">Phone Number</option>
-      //         <option value="Email">Email</option>
-      //       </select>
-      //     </div>
-      //     <button type="submit" className="rightSideBtn">
-      //       Connect
-      //     </button>
-      //   </form>
-      // ) */ /*: !props.tableChoice ? (
-      //   <form onSubmit={props.handleNextBtn} className="selectForm">
-      //     <p className="subtext">
-      //       Now choose the table that contains the unique ID of each of your
-      //       clients
-      //     </p>
-      //     <div className="inputDiv selectDiv">
-      //       <label htmlFor="table">Table</label>
-      //       <select
-      //         id="table"
-      //         value={table}
-      //         onChange={(e) => setTable(e.target.value)}
-      //       >
-      //         <option value="">Select Table</option>
-      //         <option value="Clients">Clients</option>
-      //         <option value="Subscriptions">Subscriptions</option>
-      //         <option value="Finance">Finance</option>
-      //       </select>
-      //     </div>
-      //     <button type="submit" className="rightSideBtn">
-      //       Next
-      //     </button>
-      //   </form>
-      // ) : !props.uniqueIDChoice ? (
-      //   <form onSubmit={props.handleConnectBtn} className="selectForm">
-      //     <div className="inputDiv selectDiv">
-      //       <label htmlFor="uniqueID">Field</label>
-      //       <select
-      //         id="uniqueID"
-      //         value={uniqueID}
-      //         onChange={(e) => setUniqueID(e.target.value)}
-      //       >
-      //         <option value="">Select Unique ID</option>
-      //         <option value="Client ID">Client ID</option>
-      //         <option value="Phone Number">Phone Number</option>
-      //         <option value="Email">Email</option>
-      //       </select>
-      //     </div>
-      //     <button type="submit" className="rightSideBtn">
-      //       Connect
-      //     </button>
-      //   </form>
-      // ) */)
+      // ) */
   ) : (
     <div>
       <div className="content">
@@ -207,13 +158,9 @@ const ConnectDatabaseForm = (props) => {
         <Link to="/">
           <Button text="Chat with Database" />
         </Link>
-        <hr />
+        <hr className="section-end-line" />
       </div>
-      <button
-        type="submit"
-        className="edit-btn"
-        onClick={props.handleEditConnection}
-      >
+      <button type="submit" className="edit-btn" onClick={props.handleEditConnection}>
         <img src={edit} alt="edit-icon" />
         Edit Database Connection
       </button>

@@ -2,19 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ChatInterface from "./chatInterface/ChatInterface.jsx";
 import Button from "../button/Button.jsx";
-import main_illustration from "../../assets/illustrations/main-illustration.svg";
+import homepage_illustration from "../../assets/illustrations/homepage-illustration.svg";
 import chat from "../../assets/icons/chat.png";
 import feedback from "../../assets/icons/feedback.svg"
 import "./Home.css";
 
 const Home = ({ isConnected }) => {
   return !isConnected ? (
-    <div className="home">
+    <div className="home welcome-page">
       <div className="welcome-message-container">
         <img
-          src={main_illustration}
+          src={homepage_illustration}
           alt="illustration"
-          className="illustration"
+          className="homepage-illustration"
         />
         <h1 className="welcome">Welcome to thereliable.ai !</h1>
         <p className="tagline">

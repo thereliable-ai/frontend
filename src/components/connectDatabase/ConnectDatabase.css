@@ -1,5 +1,7 @@
 .connect-database {
   /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
   padding: 1.5rem 3rem;
   width: 85vw;
   background-color: var(--primary1-V300);
@@ -20,6 +22,47 @@
 .subtext {
   color: var(--neutral-G20);
   font-weight: 300;
+}
+
+.loading-screen-container {
+  align-items: center;
+  gap: 2.5rem;
+  justify-content: center;
+}
+
+.loading-bar {
+  width: 50vw;
+  height: 1rem;
+  position: relative;
+  overflow: hidden;
+  background-color: var(
+    --neutral-G20
+  ); /* Background color of the loading bar */
+  border-radius: 2rem;
+}
+
+.loading-progress {
+  height: 100%;
+  background: var(--branding-gradient); /* Color of the loading progress */
+  animation: loading-animation 4s linear infinite; /* Adjust animation duration and timing function as needed */
+}
+
+@keyframes loading-animation {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.connecting-text {
+  background: var(--branding-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  font-size: 1.5rem;
 }
 
 /* .remember {

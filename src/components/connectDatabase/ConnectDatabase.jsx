@@ -1,28 +1,61 @@
 import React, { useState } from "react";
+import axios from "axios";
 import ConnectDatabaseForm from "./connectDatabaseForm/connectDatabaseForm";
 import "./ConnectDatabase.css";
 import green_tick from "../../assets/icons/green_tick.svg";
 // import blue_bulb from "../../assets/icons/blue_bulb.svg";
 
-const ConnectDatabase = ({ onConnectionSuccess }) => {
-  const [databaseConnection, setDatabaseConnection] = useState(false);
+const ConnectDatabase = ({
+  isConnected,
+  onConnectionSuccess,
+  onConnectionDisconnect,
+}) => {
+  // const [databaseConnection, setDatabaseConnection] = useState(false);
   // const [tableChoice, setTableChoice] = useState(false);
   // const [uniqueIDChoice, setUniqueIDChoice] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const [formData, setFormData] = useState({
+    db_user: "demo",
+    db_password: "demo",
+    db_host: "sample-data.popsql.io",
+    port_number: "5432",
+    dialect: "postgresql",
+    db_name: "marker",
+  });
 
-    const databaseConnection = true;
-    if (databaseConnection) {
-      setDatabaseConnection(true);
-    }
-    
-    onConnectionSuccess();
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleEditConnection = () =>{
-    setDatabaseConnection(false);
-  }
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "http://54.208.20.141:8000/connect",
+        formData
+      );
+
+      if (response) {
+        // Handle successful connection
+        onConnectionSuccess();
+      } else {
+        // Handle unsuccessful connection
+        alert("Failed to connect to the database");
+        console.error("Failed to connect to the database");
+      }
+    } catch (error) {
+      alert("An error occurred:", error);
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEditConnection = () => {
+    onConnectionDisconnect();
+  };
 
   // const handleNextBtn = (event) => {
   //   event.preventDefault();
@@ -44,26 +77,24 @@ const ConnectDatabase = ({ onConnectionSuccess }) => {
   // };
 
   // Change subtext based on isConnected and tableChoice states
-  const subtext = !databaseConnection
+  const subtext = !isConnected
     ? "Connect your Database"
-    // : !tableChoice
-    // ? "Connection established !"
-    // : !uniqueIDChoice
-    // ? "In table <clients>, choose the field that is the Unique ID of the client."
-    : "Connection established !";
+    : // : !tableChoice
+      // ? "Connection established !"
+      // : !uniqueIDChoice
+      // ? "In table <clients>, choose the field that is the Unique ID of the client."
+      "Connection established !";
 
-  return (
+  return !loading ? (
     <div className="connect-database">
       <div className="header">
         <div className="leftside">
           <h2 className="section-heading">Database Connection</h2>
-          <p className={`subtext ${databaseConnection ? "green" : ""}`}>
-            {subtext}
-          </p>
+          <p className={`subtext ${isConnected ? "green" : ""}`}>{subtext}</p>
         </div>
 
         {/* Green tick */}
-        {databaseConnection && (
+        {isConnected && (
           <img src={green_tick} alt="Connection established icon" />
         )}
       </div>
@@ -80,14 +111,23 @@ const ConnectDatabase = ({ onConnectionSuccess }) => {
       )}*/}
 
       <ConnectDatabaseForm
-        databaseConnection={databaseConnection}
-        handleSubmit={handleSubmit}
-        handleEditConnection = {handleEditConnection}
+        isConnected={isConnected}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleFormSubmit={handleFormSubmit}
+        handleEditConnection={handleEditConnection}
         // tableChoice={tableChoice}
         // handleNextBtn={handleNextBtn}
         // uniqueIDChoice={uniqueIDChoice}
         // handleConnectBtn={handleConnectBtn}
       />
+    </div>
+  ) : (
+    <div className="connect-database loading-screen-container">
+      <div className="loading-bar">
+        <div className="loading-progress"></div>
+      </div>
+      <p className="connecting-text">Connecting Database...</p>
     </div>
   );
 };
