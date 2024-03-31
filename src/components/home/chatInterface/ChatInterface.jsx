@@ -11,11 +11,33 @@ const ChatInterface = () => {
   const chatLogRef = useRef(null);
   const webSocket1 = useRef(null);
   const webSocket2 = useRef(null);
+  const [isTyping, setIsTyping] = useState(false); // State variable to toggle typing indicator
   const queuedInputText = useRef(null);
+  const [isFetching, setIsFetching] = useState(false);
+
+  // Function to show typing indicator
+  const showTypingIndicator = () => {
+    setIsTyping(true);
+  };
+
+  // Function to hide typing indicator
+  const hideTypingIndicator = () => {
+    setIsTyping(false);
+  };
+
+  useEffect(() => {
+    if (isFetching) {
+      // If isTyping is true, show typing indicator
+      showTypingIndicator();
+    } else {
+      // If isTyping is false, hide typing indicator
+      hideTypingIndicator();
+    }
+  }, [isFetching]);
 
   useEffect(() => {
     if (!webSocket1.current) {
-      const ws1 = new W3CWebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+      const ws1 = new W3CWebSocket(import.meta.env.VITE_WEBSOCKET_URL);
 
       ws1.onopen = () => {
         console.log("WebSocket1 connected");
@@ -38,13 +60,13 @@ const ChatInterface = () => {
       { sender: "ai", message: response.message },
     ]);
     console.log("message recieved on WebSocket1");
+    setIsFetching(false);
 
     if (response.flag === "clarification_question") {
       handleClarificationQuestion();
     } else if (response.flag === "response") {
       webSocket2.current?.close();
       webSocket2.current = null;
-      console.log("WebSocket2 closed after receiving response");
     }
   };
 
@@ -63,29 +85,14 @@ const ChatInterface = () => {
     } else if (response.flag === "clarification_question") {
       handleClarificationQuestion();
     }
-
-    // } else {
-    //   // If it's a regular response, close WebSocket2 and handle further communication on WebSocket1
-    //   webSocket2.current.close();
-    //   webSocket2.current = null;
-    //   console.log("WebSocket2 closed, further communication on WebSocket1");
-    //   // Send the response message on WebSocket1
-    //   if (webSocket1.current) {
-    //     webSocket1.current.send(JSON.stringify(response));
-    //     console.log("Response sent on WebSocket1");
-    //   } else {
-    //     console.error("WebSocket1 connection not established");
-    //   }
-    // }
   };
 
   const handleClarificationQuestion = async () => {
     try {
       if (!webSocket2.current) {
-        const ws2 = new W3CWebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+        const ws2 = new W3CWebSocket(import.meta.env.VITE_WEBSOCKET_URL);
         ws2.onopen = () => {
           console.log("WebSocket2 connected");
-          // console.log(queuedInputText.current)
           if (queuedInputText.current) {
             sendMessageThroughWebSocket2(queuedInputText.current);
             queuedInputText.current = null;
@@ -107,6 +114,7 @@ const ChatInterface = () => {
 
   const sendMessage = () => {
     if (inputText.trim() !== "") {
+      setIsFetching(true);
       setChatHistory((prevHistory) => [
         ...prevHistory,
         { sender: "user", message: inputText },
@@ -127,7 +135,6 @@ const ChatInterface = () => {
           console.error("WebSocket1 connection not established");
         }
       }
-
       setInputText("");
     }
   };
@@ -163,7 +170,8 @@ const ChatInterface = () => {
       </div>
 
       <div className="chat-footer">
-        {/* <p className="typing-text">thereliable.ai is typing...</p> */}
+        {/* Typing Indicator */}
+        {isTyping && <p className="typing-text">thereliable.ai is typing...</p>}
         {/* Input Box */}
         <div className="chat-input-div">
           <textarea

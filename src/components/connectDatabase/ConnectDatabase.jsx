@@ -32,11 +32,13 @@ const ConnectDatabase = ({
     e.preventDefault();
     setLoading(true);
     try {
+      console.log(import.meta.env.VITE_API_URL);
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/connect`,
+        `${import.meta.env.VITE_API_URL}/connect`,
         formData
       );
 
+      //const response = await axios.post(`${process.env.REACT_APP_API_URL}/connect`, formData);
       if (response) {
         // Handle successful connection
         onConnectionSuccess();
