@@ -11,29 +11,92 @@ const ChatInterface = () => {
   const chatLogRef = useRef(null);
   const webSocket1 = useRef(null);
   const webSocket2 = useRef(null);
+  const queuedInputText = useRef(null);
 
   useEffect(() => {
-    // Initialize WebSocket connections
-    const ws1 = new W3CWebSocket("ws://54.208.20.141:8000/chat");
-    const ws2 = new W3CWebSocket("ws://54.208.20.141:8000/chat");
+    if (!webSocket1.current) {
+      const ws1 = new W3CWebSocket("ws://54.208.20.141:8000/chat");
 
-    webSocket1.current = ws1;
-    webSocket2.current = ws2;
+      ws1.onopen = () => {
+        console.log("WebSocket1 connected");
+      };
 
-    // WebSocket1 event handler
-    ws1.onmessage = (message) => handleWebSocketMessage(message, ws1, ws2);
-    // WebSocket2 event handler
-    ws2.onmessage = (message) => handleWebSocketMessage(message, ws1, ws2);
+      ws1.onmessage = handleWebSocket1Message;
+
+      ws1.onclose = () => {
+        webSocket1.current = null;
+      };
+
+      webSocket1.current = ws1;
+    }
   }, []);
 
-  const handleWebSocketMessage = (message, ws1, ws2) => {
+  const handleWebSocket1Message = (message) => {
     const response = JSON.parse(message.data);
     setChatHistory((prevHistory) => [
       ...prevHistory,
       { sender: "ai", message: response.message },
     ]);
+    console.log("message recieved on WebSocket1");
+
     if (response.flag === "clarification_question") {
-      ws2.send(JSON.stringify({ message: inputText, flag: "input" }));
+      handleClarificationQuestion();
+    }
+  };
+
+  const handleWebSocket2Message = (message) => {
+    const response = JSON.parse(message.data);
+    setChatHistory((prevHistory) => [
+      ...prevHistory,
+      { sender: "ai", message: response.message },
+    ]);
+    console.log("message received on WebSocket2");
+
+    if (response.flag === "response") {
+      webSocket2.current.close();
+      webSocket2.current = null;
+      console.log("WebSocket2 closed after receiving response");
+    } else if (response.flag === "clarification_question") {
+      // If another clarification question is received, handle it on WebSocket2
+      handleClarificationQuestion();
+    } else {
+      // If it's a regular response, close WebSocket2 and handle further communication on WebSocket1
+      webSocket2.current.close();
+      webSocket2.current = null;
+      console.log("WebSocket2 closed, further communication on WebSocket1");
+      // Send the response message on WebSocket1
+      if (webSocket1.current) {
+        webSocket1.current.send(JSON.stringify(response));
+        console.log("Response sent on WebSocket1");
+      } else {
+        console.error("WebSocket1 connection not established");
+      }
+    }
+  };
+
+  const handleClarificationQuestion = async () => {
+    try {
+      if (!webSocket2.current) {
+        const ws2 = new W3CWebSocket("ws://54.208.20.141:8000/chat");
+        ws2.onopen = () => {
+          console.log("WebSocket2 connected");
+
+          if (queuedInputText.current) {
+            sendMessageThroughWebSocket2(queuedInputText.current);
+            queuedInputText.current = null;
+          }
+        };
+        ws2.onmessage = handleWebSocket2Message;
+        ws2.onclose = () => {
+          webSocket2.current = null;
+          console.log("WebSocket2 closed");
+        };
+        webSocket2.current = ws2;
+      } else {
+        queuedInputText.current = inputText;
+      }
+    } catch (error) {
+      console.error("Error opening WebSocket2:", error);
     }
   };
 
@@ -43,9 +106,23 @@ const ChatInterface = () => {
         ...prevHistory,
         { sender: "user", message: inputText },
       ]);
-      webSocket1.current.send(
-        JSON.stringify({ message: inputText, flag: "new_question" })
-      );
+
+      if (webSocket2.current) {
+        webSocket2.current.send(
+          JSON.stringify({ message: inputText, flag: "input" })
+        );
+        console.log("sent on websocket2");
+      } else {
+        if (webSocket1.current) {
+          webSocket1.current.send(
+            JSON.stringify({ message: inputText, flag: "new_question" })
+          );
+          console.log("message sent on WebSocket1");
+        } else {
+          console.error("WebSocket1 connection not established");
+        }
+      }
+
       setInputText("");
     }
   };
