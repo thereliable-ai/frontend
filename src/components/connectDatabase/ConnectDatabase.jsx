@@ -33,7 +33,7 @@ const ConnectDatabase = ({
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://54.208.20.141:8000/connect",
+        `${process.env.REACT_APP_API_URL}/connect`,
         formData
       );
 

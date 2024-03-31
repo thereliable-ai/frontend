@@ -15,7 +15,7 @@ const ChatInterface = () => {
 
   useEffect(() => {
     if (!webSocket1.current) {
-      const ws1 = new W3CWebSocket("ws://54.208.20.141:8000/chat");
+      const ws1 = new W3CWebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
       ws1.onopen = () => {
         console.log("WebSocket1 connected");
@@ -82,7 +82,7 @@ const ChatInterface = () => {
   const handleClarificationQuestion = async () => {
     try {
       if (!webSocket2.current) {
-        const ws2 = new W3CWebSocket("ws://54.208.20.141:8000/chat");
+        const ws2 = new W3CWebSocket(process.env.REACT_APP_WEBSOCKET_URL);
         ws2.onopen = () => {
           console.log("WebSocket2 connected");
           // console.log(queuedInputText.current)

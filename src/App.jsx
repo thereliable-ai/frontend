@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginSignup from "./components/login-signup/Login-Signup";
 import Sidebar from "./components/sidebar/Sidebar";
@@ -12,6 +12,12 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
 
+  useEffect(() => {
+    // Check if the current path is not "/", then redirect to "/"
+    if (window.location.pathname !== "/") {
+      window.location.href = "/";
+    }
+  }, []);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -23,21 +29,31 @@ const App = () => {
 
   const handleSignup = () => {
     setIsSignedUp(true);
-  }
+  };
 
   const GoToSignup = () => {
     setIsSignedUp(false);
+  };
 
-  }
-
-  const GoToLogin =() =>{
+  const GoToLogin = () => {
     setIsSignedUp(true);
-  }
+  };
 
   return !isLoggedIn ? (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginSignup isSignedUp={isSignedUp} handleLogin={handleLogin} handleSignup={handleSignup} GoToLogin={GoToLogin} GoToSignup={GoToSignup}/>}></Route>
+        <Route
+          path="/"
+          element={
+            <LoginSignup
+              isSignedUp={isSignedUp}
+              handleLogin={handleLogin}
+              handleSignup={handleSignup}
+              GoToLogin={GoToLogin}
+              GoToSignup={GoToSignup}
+            />
+          }
+        ></Route>
       </Routes>
     </Router>
   ) : (
@@ -52,7 +68,7 @@ const App = () => {
               <ConnectDatabase
                 isConnected={isConnected}
                 onConnectionSuccess={() => setIsConnected(true)}
-                onConnectionDisconnect = {() => setIsConnected(false)}
+                onConnectionDisconnect={() => setIsConnected(false)}
               />
             }
           />
