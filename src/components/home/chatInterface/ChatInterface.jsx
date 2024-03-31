@@ -41,6 +41,10 @@ const ChatInterface = () => {
 
     if (response.flag === "clarification_question") {
       handleClarificationQuestion();
+    } else if (response.flag === "response") {
+      webSocket2.current?.close();
+      webSocket2.current = null;
+      console.log("WebSocket2 closed after receiving response");
     }
   };
 
@@ -57,21 +61,22 @@ const ChatInterface = () => {
       webSocket2.current = null;
       console.log("WebSocket2 closed after receiving response");
     } else if (response.flag === "clarification_question") {
-      // If another clarification question is received, handle it on WebSocket2
       handleClarificationQuestion();
-    } else {
-      // If it's a regular response, close WebSocket2 and handle further communication on WebSocket1
-      webSocket2.current.close();
-      webSocket2.current = null;
-      console.log("WebSocket2 closed, further communication on WebSocket1");
-      // Send the response message on WebSocket1
-      if (webSocket1.current) {
-        webSocket1.current.send(JSON.stringify(response));
-        console.log("Response sent on WebSocket1");
-      } else {
-        console.error("WebSocket1 connection not established");
-      }
     }
+
+    // } else {
+    //   // If it's a regular response, close WebSocket2 and handle further communication on WebSocket1
+    //   webSocket2.current.close();
+    //   webSocket2.current = null;
+    //   console.log("WebSocket2 closed, further communication on WebSocket1");
+    //   // Send the response message on WebSocket1
+    //   if (webSocket1.current) {
+    //     webSocket1.current.send(JSON.stringify(response));
+    //     console.log("Response sent on WebSocket1");
+    //   } else {
+    //     console.error("WebSocket1 connection not established");
+    //   }
+    // }
   };
 
   const handleClarificationQuestion = async () => {
@@ -80,7 +85,7 @@ const ChatInterface = () => {
         const ws2 = new W3CWebSocket("ws://54.208.20.141:8000/chat");
         ws2.onopen = () => {
           console.log("WebSocket2 connected");
-
+          // console.log(queuedInputText.current)
           if (queuedInputText.current) {
             sendMessageThroughWebSocket2(queuedInputText.current);
             queuedInputText.current = null;
