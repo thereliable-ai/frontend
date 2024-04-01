@@ -10,7 +10,6 @@ const ConnectDatabase = ({
   onConnectionSuccess,
   onConnectionDisconnect,
 }) => {
-  // const [databaseConnection, setDatabaseConnection] = useState(false);
   // const [tableChoice, setTableChoice] = useState(false);
   // const [uniqueIDChoice, setUniqueIDChoice] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -22,6 +21,7 @@ const ConnectDatabase = ({
     port_number: "5432",
     dialect: "postgresql",
     db_name: "marker",
+    _id: "420"
   });
 
   const handleInputChange = (e) => {
@@ -32,20 +32,16 @@ const ConnectDatabase = ({
     e.preventDefault();
     setLoading(true);
     try {
-      console.log(import.meta.env.VITE_API_URL);
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/connect`,
         formData
       );
-
-      //const response = await axios.post(`${process.env.REACT_APP_API_URL}/connect`, formData);
       if (response) {
-        // Handle successful connection
+        
         onConnectionSuccess();
       } else {
-        // Handle unsuccessful connection
+        
         alert("Failed to connect to the database");
-        console.error("Failed to connect to the database");
       }
     } catch (error) {
       alert("An error occurred:", error);

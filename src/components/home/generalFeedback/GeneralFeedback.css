@@ -1,0 +1,61 @@
+.feedback-input-div {
+  display: flex;
+  justify-content: space-between;
+  background: var(--neutral-G30);
+  border-radius: 0.25rem;
+  width: 25vw;
+  max-width: 25rem;
+}
+
+#feedback {
+  padding: 0.75rem;
+  outline: none;
+  color: var(--primary1-V500);
+  font-size: 0.95rem;
+  line-height: 1.25;
+  background: none;
+  border: none;
+}
+
+#feedback::-webkit-scrollbar {
+  display: none;
+}
+
+#feedback:focus {
+  outline: none;
+  border: none;
+}
+
+.send {
+  background: none;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.feedback-input-div:focus-within .send img {
+  content: url("../../../assets//icons/sendGradient.svg");
+}
+
+.feedback-message {
+  color: var(--semantic-Green-G100);
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  animation: dissolve 1s linear forwards;
+}
+
+@keyframes dissolve {
+  0% {
+    opacity: 0;
+ }
+  50% {
+    opacity: 1;
+ }
+  100% {
+    opacity: 0;
+ }
+}

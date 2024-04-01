@@ -5,45 +5,7 @@ import edit from "../../../assets/icons/edit.svg";
 import "./connectDatabaseForm.css";
 
 const ConnectDatabaseForm = (props) => {
-  // const [formData, setFormData] = useState({
-  //   db_user: "",
-  //   db_password: "",
-  //   db_host: "",
-  //   port_number: "",
-  //   dialect: "",
-  //   db_name: "marker",
-  // });
-
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-
-  // const submitForm = async (e) => {
-  //   e.preventDefault();
-  //   try {
-
-  //     const response = await axios.post(
-  //       "http://54.208.20.141:8000/connect",
-  //       formData
-  //     );
-
-  //     if (response) {
-  //       // Handle successful connection
-  //       props.handleSubmit();
-  //     } else {
-  //       // Handle unsuccessful connection
-  //       alert("Failed to connect to the database");
-  //       console.error("Failed to connect to the database");
-  //     }
-  //   } catch (error) {
-  //     alert("An error occurred:", error);
-  //     console.error(error);
-  //   }
-  // };
-
-  // const [table, setTable] = useState("");
-  // const [uniqueID, setUniqueID] = useState("");
-
+  
   return !props.isConnected ? (
     <form onSubmit={props.handleFormSubmit} className="connect-database-form">
       <div className="inputDiv">
@@ -101,6 +63,17 @@ const ConnectDatabaseForm = (props) => {
           id="db_password"
           value={props.formData.db_password}
           name="db_password"
+          onChange={props.handleInputChange}
+        />
+      </div>
+
+      <div className="inputDiv">
+        <label htmlFor="db_name">Database name</label>
+        <input
+          type="text"
+          id="db_name"
+          value={props.formData.db_name}
+          name="db_name"
           onChange={props.handleInputChange}
         />
       </div>

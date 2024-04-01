@@ -11,27 +11,17 @@ const ChatInterface = () => {
   const chatLogRef = useRef(null);
   const webSocket1 = useRef(null);
   const webSocket2 = useRef(null);
-  const [isTyping, setIsTyping] = useState(false); // State variable to toggle typing indicator
   const queuedInputText = useRef(null);
+
+  const [isTyping, setIsTyping] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
-
-  // Function to show typing indicator
-  const showTypingIndicator = () => {
-    setIsTyping(true);
-  };
-
-  // Function to hide typing indicator
-  const hideTypingIndicator = () => {
-    setIsTyping(false);
-  };
+  const [lastUserQuestion, setLastUserQuestion] = useState("");
 
   useEffect(() => {
     if (isFetching) {
-      // If isTyping is true, show typing indicator
-      showTypingIndicator();
+      setIsTyping(true);
     } else {
-      // If isTyping is false, hide typing indicator
-      hideTypingIndicator();
+      setIsTyping(false);
     }
   }, [isFetching]);
 
@@ -54,28 +44,34 @@ const ChatInterface = () => {
   }, []);
 
   const handleWebSocket1Message = (message) => {
-    const response = JSON.parse(message.data);
-    setChatHistory((prevHistory) => [
-      ...prevHistory,
-      { sender: "ai", message: response.message },
-    ]);
-    console.log("message recieved on WebSocket1");
-    setIsFetching(false);
+    try {
+      const response = JSON.parse(message.data);
+      setChatHistory((prevHistory) => [
+        ...prevHistory,
+        { sender: "ai", message: response.message, flag: response.flag },
+      ]);
+      console.log("message recieved on WebSocket1");
 
-    if (response.flag === "clarification_question") {
-      handleClarificationQuestion();
-    } else if (response.flag === "response") {
-      webSocket2.current?.close();
-      webSocket2.current = null;
+      if (response.flag === "clarification_question") {
+        handleClarificationQuestion();
+      } else if (response.flag === "response") {
+        webSocket2.current?.close();
+        webSocket2.current = null;
+      }
+    } catch (error) {
+      alert("An error occurred:", error);
+      console.error(error);
+    } finally {
+      setIsFetching(false);
     }
   };
 
   const handleWebSocket2Message = (message) => {
     const response = JSON.parse(message.data);
-    setChatHistory((prevHistory) => [
-      ...prevHistory,
-      { sender: "ai", message: response.message },
-    ]);
+    // setChatHistory((prevHistory) => [
+    //   ...prevHistory,
+    //   { sender: "ai", message: response.message, flag: response.flag },
+    // ]);
     console.log("message received on WebSocket2");
 
     if (response.flag === "response") {
@@ -131,6 +127,7 @@ const ChatInterface = () => {
             JSON.stringify({ message: inputText, flag: "new_question" })
           );
           console.log("message sent on WebSocket1");
+          setLastUserQuestion(inputText);
         } else {
           console.error("WebSocket1 connection not established");
         }
@@ -164,14 +161,32 @@ const ChatInterface = () => {
           if (message.sender === "user") {
             return <UserMessage key={index} message={message.message} />;
           } else {
-            return <AiMessage key={index} message={message.message} />;
+            if (message.flag === "response") {
+              return (
+                <AiMessage
+                  key={index}
+                  message={message.message}
+                  feedback={true}
+                  lastUserQuestion={lastUserQuestion}
+                />
+              );
+            } else {
+              return <AiMessage key={index} message={message.message} />;
+            }
           }
         })}
       </div>
 
       <div className="chat-footer">
-        {/* Typing Indicator */}
-        {isTyping && <p className="typing-text">thereliable.ai is typing...</p>}
+        {/* Is Typing Text */}
+        {isTyping && (
+          <div className="is-typing-text">
+            thereliable.ai is typing<span className="typing_dot">.</span>
+            <span className="typing_dot">.</span>
+            <span className="typing_dot">.</span>
+          </div>
+        )}
+
         {/* Input Box */}
         <div className="chat-input-div">
           <textarea
