@@ -21,7 +21,14 @@ const ConnectDatabase = ({
     port_number: "5432",
     dialect: "postgresql",
     db_name: "marker",
-    _id: "420"
+    _id: "test_id",
+    supervisor_system_prompt_prefix: "",
+    supervisor_system_prompt_suffix: "",
+    clarification_agent_prompt: "",
+    sql_agent_prompt: "",
+    sql_query_generator_tool_prompt: "",
+    human_tool_description: "",
+    sql_query_generator_tool_description: "",
   });
 
   const handleInputChange = (e) => {
@@ -37,15 +44,15 @@ const ConnectDatabase = ({
         formData
       );
       if (response) {
-        
         onConnectionSuccess();
-      } else {
-        
-        alert("Failed to connect to the database");
       }
+      // } else {
+      //   console.log("database couldn't connect")
+      //   // console.log(response.data.detail, "Failed to connect to the database");
+      // }
     } catch (error) {
-      alert("An error occurred:", error);
       console.error(error);
+      alert("An error occured:\n" + error.response.data.detail);
     } finally {
       setLoading(false);
     }

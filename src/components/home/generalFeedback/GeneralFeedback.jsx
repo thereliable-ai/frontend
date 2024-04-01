@@ -7,7 +7,7 @@ import "./GeneralFeedback.css";
 
 const GeneralFeedback = ({ aiMessage, lastUserQuestion, setShowFeedback }) => {
   const [feedbackData, setFeedbackData] = useState({
-    user_id: "420",
+    user_id: "test_id",
     question: lastUserQuestion,
     answer: aiMessage,
     feedback: "",

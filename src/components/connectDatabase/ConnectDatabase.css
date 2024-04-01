@@ -1,10 +1,15 @@
 .connect-database {
-  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
   padding: 1.5rem 3rem;
   width: 85vw;
   background-color: var(--primary1-V300);
+  flex-grow: 1; /* Allow the main content to take up the remaining space */
+  overflow-y: auto;
+  position: fixed; /* Fix the sidebar position */
+  top: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .header {
@@ -15,7 +20,10 @@
 .section-heading {
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--neutral-G20);
+  background: var(--branding-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 0.75rem;
 }
 
@@ -35,16 +43,14 @@
   height: 1rem;
   position: relative;
   overflow: hidden;
-  background-color: var(
-    --neutral-G20
-  ); /* Background color of the loading bar */
+  background-color: var(--neutral-G20);
   border-radius: 2rem;
 }
 
 .loading-progress {
   height: 100%;
-  background: var(--branding-gradient); /* Color of the loading progress */
-  animation: loading-animation 4s linear infinite; /* Adjust animation duration and timing function as needed */
+  background: var(--branding-gradient);
+  animation: loading-animation 4s linear infinite;
 }
 
 @keyframes loading-animation {

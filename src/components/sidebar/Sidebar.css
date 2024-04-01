@@ -10,6 +10,9 @@
   padding: 1.25rem;
   border-radius: 0 1rem 1rem 0;
   background: var(--primary1-V500);
+  position: fixed; /* Fix the sidebar position */
+ top: 0;
+ left: 0;
 }
 
 .logo {

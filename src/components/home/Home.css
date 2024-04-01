@@ -2,6 +2,12 @@
   padding: 1.5rem 3rem;
   width: 85vw;
   background-color: var(--primary1-V300);
+  flex-grow: 1; /* Allow the main content to take up the remaining space */
+  overflow-y: auto;
+  position: fixed; /* Fix the sidebar position */
+  top: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .welcome-page {

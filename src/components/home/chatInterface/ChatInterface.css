@@ -14,9 +14,9 @@
   overflow-y: scroll;
 }
 
-.chat-log::-webkit-scrollbar {
+/* .chat-log::-webkit-scrollbar {
   display: none;
-}
+} */
 
 /* Chat Message */
 .chat-message-div {
@@ -128,9 +128,9 @@ textarea {
   border: none;
 }
 
-textarea::-webkit-scrollbar {
+/* textarea::-webkit-scrollbar {
   display: none;
-}
+} */
 
 textarea:focus {
   outline: none;

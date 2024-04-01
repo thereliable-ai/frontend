@@ -40,6 +40,13 @@ const ChatInterface = () => {
       };
 
       webSocket1.current = ws1;
+      // return () => {
+      //   if (webSocket1.current) {
+      //     webSocket1.current.close();
+      //     webSocket1.current = null;
+      //     console.log("websocket1 closed")
+      //   }
+      // };
     }
   }, []);
 

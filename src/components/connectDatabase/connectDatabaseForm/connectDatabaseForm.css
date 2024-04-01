@@ -1,5 +1,11 @@
 .connect-database-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   margin-top: 2.5rem;
+}
+
+.connection-details-container {
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
@@ -15,8 +21,8 @@
   color: var(--neutral-G20);
   font-size: 1.1rem;
   display: block;
-  width: 18vw;
-  max-width: 18rem;
+  width: 20vw;
+  max-width: 20rem;
 }
 
 select {
@@ -30,7 +36,6 @@ select {
   background-image: url("../../../assets/icons/arrow_down.svg");
   background-repeat: no-repeat;
   background-position: center right;
-
   width: 20vw;
   max-width: 20rem;
   color: var(--neutral-G20);
@@ -39,9 +44,9 @@ select {
   border: 0.01rem solid var(--neutral-G100);
 }
 
-.inputDiv input {
+.inputDiv input,
+.inputDiv textarea {
   display: flex;
-  /* width: 18.625rem; */
   width: 20vw;
   max-width: 20rem;
   padding: 0.75rem;
@@ -49,16 +54,66 @@ select {
   background: var(--primary2-P300);
   color: var(--neutral-G20);
   outline: none;
-  /* border: none; */
   border: 0.01rem solid var(--neutral-G100);
 }
 
 select:focus,
-.inputDiv input:focus {
+.inputDiv input:focus,
+.inputDiv textarea:focus {
   background-color: var(--primary2-P400);
   outline: none;
-  /* border: none; */
   border: 0.01rem solid var(--neutral-G100);
+}
+
+.prompts-container {
+  overflow-y: scroll;
+}
+.prompts-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+}
+
+.prompts-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--neutral-G20);
+}
+.prompts-body {
+  margin-top: 1.5rem;
+  padding-left: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  width: fit-content;
+}
+
+.prompts-body .inputDiv {
+  gap: 3.5rem;
+  align-items: flex-start;
+}
+
+.prompts-body .inputDiv label {
+  color: var(--neutral-G20);
+  font-size: 1.1rem;
+  display: block;
+  width: 18vw;
+  max-width: 18rem;
+  padding: 0.75rem 0;
+}
+
+.inputDiv textarea {
+  border: none;
+}
+
+.inputDiv textarea:focus {
+  border: none;
 }
 
 .btn-width {
@@ -97,7 +152,7 @@ select:focus,
   width: 90%;
 }
 
-.section-end-line{
+.section-end-line {
   margin: 5vh 0;
   background: var(--neutral-G30);
   border-radius: 100%;
@@ -115,5 +170,4 @@ select:focus,
   font-weight: 500;
   color: var(--semantic-Brown-B500);
   border: none;
-
 }
