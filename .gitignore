@@ -24,3 +24,23 @@ dist-ssr
 *.sw?
 
 .env.local
+
+##############################
+
+# Landing Page
+src/pages
+src/components/benefits
+src/components/data-sources
+src/components/features
+src/components/header
+src/components/introduction
+src/components/onboarding
+src/components/usecases
+src/assets/icons/benefit_card_icon.svg
+src/assets/icons/feature_card_icon.svg
+src/assets/icons/glass.svg
+src/assets/icons/usecase_icon.svg
+
+# sections not useful right now
+src/components/createLinks
+src/components/chatbot

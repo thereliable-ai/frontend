@@ -4,7 +4,6 @@ import LoginSignup from "./components/login-signup/Login-Signup";
 import Sidebar from "./components/sidebar/Sidebar";
 import Home from "./components/home/Home";
 import ConnectDatabase from "./components/connectDatabase/ConnectDatabase";
-import CreateLinks from "./components/createLinks/CreateLinks";
 import "../src/App.css";
 
 const App = () => {
@@ -72,10 +71,10 @@ const App = () => {
               />
             }
           />
-          <Route
+          {/* <Route
             path="/create-links"
             element={<CreateLinks isConnected={isConnected} />}
-          />
+          /> */}
         </Routes>
       </div>
     </Router>
